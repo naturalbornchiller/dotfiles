@@ -1,10 +1,4 @@
 
-" ///////////////////////////////////////
-" ///////////////////////////////////////
-" ///////// (ZZZ)ZZZEN'S CONFIG /////////
-" ///////////////////////////////////////
-" ///////////////////////////////////////
-
 " Set 'nocompatible' to ward off unexpected things that your distro might
 " have made, as well as sanely reset options when re-sourcing .vimrc
 set nocompatible
@@ -75,7 +69,6 @@ hi CursorLine term=bold cterm=bold guibg=Grey40
 let &t_EI = "\e[1 q" " normal
 let &t_SI = "\e[5 q" " insert
 let &t_SR = "\e[4 q" " replace 
-
 
 " Set line numbers and relative line numbers
 set nu rnu
