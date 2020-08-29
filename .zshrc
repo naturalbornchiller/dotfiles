@@ -99,3 +99,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Dotfiles
+alias dotfiles='/usr/bin/git --git-dir=/Users/ep/.cfg/ --work-tree=/Users/ep'

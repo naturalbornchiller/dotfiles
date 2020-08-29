@@ -7,27 +7,31 @@ set nocompatible
 "---------------------------------------------------------------
 call plug#begin('~/.vim/plugged')
 " Style
-Plug 'mhinz/vim-startify'
-Plug 'altercation/solarized'
 Plug 'machakann/vim-highlightedyank'
+Plug 'mhinz/vim-startify'
+Plug 'nathanaelkane/vim-indent-guides'
+" Themes
+Plug 'altercation/solarized'
+Plug 'dracula/vim'
+Plug 'liuchengxu/space-vim-dark'
 " Navigation
 Plug 'preservim/nerdtree'
 Plug 'tpope/vim-unimpaired'
 " Editing
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
 " Coding
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
 Plug 'sophacles/vim-processing'
 Plug 'vim-syntastic/syntastic'
+Plug 'ycm-core/YouCompleteMe'
 " Status bar
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 call plug#end()
-" Inactive
-"Plug 'nathanaelkane/vim-indent-guides'
-"Plug 'ycm-core/YouCompleteMe'
 
 "---------------------------------------------------------------
 " Basic Settings
@@ -59,7 +63,7 @@ set laststatus=2
 set ruler
 set wildmenu
 set autoindent
-set tabstop=4 softtabstop=4 expandtab shiftwidth=4 smarttab
+set tabstop=8 softtabstop=8 expandtab shiftwidth=8 smarttab
 
 " Highlight instead of underlining current line
 set cursorline
@@ -94,13 +98,19 @@ set backspace=indent,eol,start
 set visualbell
 
 " Set colorscheme
-"colo solarized
+colorscheme space-vim-dark
+hi Normal     ctermbg=NONE guibg=NONE
+hi LineNr     ctermbg=NONE guibg=NONE
+hi SignColumn ctermbg=NONE guibg=NONE
 
 "------------------------------------------------------------
 " Mappings
 "------------------------------------------------------------
 " Reset leader
 let mapleader = ","
+
+" Easy macro
+nnoremap Q @q
 
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
 " which is the default
@@ -122,28 +132,38 @@ inoremap JK <Esc>
 " Fast saving
 nmap <leader>w :w!<cr>
 
-"Ergonomic command mode
+" Ergonomic command mode
 nnoremap ; :
 
+" n always searches forward and N always searches backwards
+nnoremap <expr> n  'Nn'[v:searchforward]
+xnoremap <expr> n  'Nn'[v:searchforward]
+onoremap <expr> n  'Nn'[v:searchforward]
+
+nnoremap <expr> N  'nN'[v:searchforward]
+xnoremap <expr> N  'nN'[v:searchforward]
+onoremap <expr> N  'nN'[v:searchforward]
+
+" Move normally between wrapped lines
+nmap j gj
+nmap k gk
 "------------------------------------------------------------
 " Plugin Settings
 "------------------------------------------------------------
 " * NERDTree
-" Reset directory arrows to plus/minus
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeAutoDeleteBuffer = 1
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
-" Toggle NT using ',t'
 nmap <leader>t :NERDTreeToggle<CR>
-" Open NT automatically when vim starts up on a directory
-autocmd StdinReadPre * let s:std_in = 1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
 
 " * Vim-Airline
 " Show buffers when only one tab is open
 let g:airline#extensions#tabline#enabled = 1
 
 " * Vim-AirlineThemes
-let g:airline_theme='papercolor'
+let g:airline_theme='dracula'
 " Powerline symbols
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
@@ -154,6 +174,12 @@ endif
 map y <Plug>(highlightedyank)
 let g:highlightedyank_highlight_duration = 200
 
-" * Vim-IndentGuides
-"let g:indent_guides_enable_on_vim_startup = 1
-"let g:indent_guides_start_level = 0
+" * Vim-Indent-Guides
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 1
+
+" * UltiSnips
+let g:UltiSnipsExpandTrigger="<c-space>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"                                       
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>" 
+
